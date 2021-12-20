@@ -1,7 +1,7 @@
 // Copyright 2021 Narlyyev Parahat
 #include <gtest/gtest.h>
-#include <gtest-mpi-listener.hpp>
 #include <vector>
+#include <gtest-mpi-listener.hpp>
 #include "./narlyyev_gauss.h"
 
 TEST(Parallel_Operations_MPI, Image_100x1) {
