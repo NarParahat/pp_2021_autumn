@@ -12,7 +12,7 @@ std::vector<double> getRandomImage(size_t rows, size_t cols) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::vector<double> image(cols * rows);
-    for (int i = 0; i < cols * rows; i++) {
+    for (size_t i = 0; i < cols * rows; i++) {
         int color = gen() % 256;
         image[i] = color / 255.0;
     }
@@ -22,15 +22,13 @@ std::vector<double> getRandomImage(size_t rows, size_t cols) {
 std::vector<double> getSequentialOperations(std::vector<double> image, size_t rows, size_t cols) {
     std::vector<double> result(rows * cols);
 
-    for (int y = 0; y < rows; y++)
-        for (int x = 0; x < cols; x++) {
+    for (size_t y = 0; y < rows; y++)
+        for (size_t x = 0; x < cols; x++) {
             double color = 0;
             for (int i = -gaussianRadius; i < gaussianRadius; i++)
                 for (int j = -gaussianRadius; j < gaussianRadius; j++) {
-                    int x_index = x + j, y_index = y + i;
-                    if (x_index < 0 || x_index > cols - 1 || y_index < 0 || y_index > rows - 1) {
-                        color += 0;
-                    } else {
+                    size_t x_index = x + j, y_index = y + i;
+                    if (x_index < cols && y_index < rows) {
                         color += image[y_index * cols + x_index] * gaussianKernel[(i + 1) * gaussianSize + (j + 1)];
                     }
                 }
@@ -48,7 +46,7 @@ std::vector<double> getParallelOperations(std::vector<double> global_image, size
     int error_code = 0;
     if (rank == 0 && global_image.size() == 0) {
         error_code = 1;
-    } else if (rank == 0 && static_cast<int>(global_image.size()) != rows * cols) {
+    } else if (rank == 0 && global_image.size() != rows * cols) {
         error_code = 2;
     }
     MPI_Bcast(&error_code, 1, MPI_INT, 0, MPI_COMM_WORLD);
