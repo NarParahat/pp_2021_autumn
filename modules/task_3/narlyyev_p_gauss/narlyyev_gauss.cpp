@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include "../../../modules/task_3/narlyyev_p_gauss/narlyyev_gauss.h"
 
-std::vector<double> getRandomImage(int rows, int cols) {
+std::vector<double> getRandomImage(size_t rows, size_t cols) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
     std::vector<double> image(cols * rows);
@@ -19,7 +19,7 @@ std::vector<double> getRandomImage(int rows, int cols) {
     return image;
 }
 
-std::vector<double> getSequentialOperations(std::vector<double> image, int rows, int cols) {
+std::vector<double> getSequentialOperations(std::vector<double> image, size_t rows, size_t cols) {
     std::vector<double> result(rows * cols);
 
     for (int y = 0; y < rows; y++)
@@ -39,7 +39,7 @@ std::vector<double> getSequentialOperations(std::vector<double> image, int rows,
     return result;
 }
 
-std::vector<double> getParallelOperations(std::vector<double> global_image, int rows, int cols) {
+std::vector<double> getParallelOperations(std::vector<double> global_image, size_t rows, size_t cols) {
     int size, rank;
 
     MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -58,8 +58,8 @@ std::vector<double> getParallelOperations(std::vector<double> global_image, int 
         throw std::runtime_error("Invalid parameters");
     }
 
-    const int delta = (rows / size) * cols;
-    const int epsilon = (rows % size) * cols;
+    const size_t delta = (rows / size) * cols;
+    const size_t epsilon = (rows % size) * cols;
 
     int dataSize;
     if (rank == 0) {
@@ -78,7 +78,7 @@ std::vector<double> getParallelOperations(std::vector<double> global_image, int 
             MPI_Send(global_image.data() + epsilon + proc * delta - cols, delta + 2 * cols,
                 MPI_DOUBLE, proc, 0, MPI_COMM_WORLD);
         }
-        MPI_Send(global_image.data() + epsilon + (size - 1) * delta - cols, delta + cols,
+        MPI_Send(global_image.data() + epsilon + (static_cast<size_t>(size) - 1) * delta - cols, delta + cols,
                 MPI_DOUBLE, size - 1, 0, MPI_COMM_WORLD);
     } else if (rank == size - 1) {
         MPI_Status status;

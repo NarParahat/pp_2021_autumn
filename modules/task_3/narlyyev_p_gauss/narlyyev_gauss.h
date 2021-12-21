@@ -13,8 +13,8 @@ const int gaussianKernel[] = {
 };
 const int gaussianNorm = 16;
 
-std::vector<double> getRandomImage(int rows, int cols);
-std::vector<double> getSequentialOperations(std::vector<double> image, int rows, int cols);
-std::vector<double> getParallelOperations(std::vector<double> global_image, int rows, int cols);
+std::vector<double> getRandomImage(size_t rows, size_t cols);
+std::vector<double> getSequentialOperations(std::vector<double> image, size_t rows, size_t cols);
+std::vector<double> getParallelOperations(std::vector<double> global_image, size_t rows, size_t cols);
 
 #endif  // MODULES_TASK_3_NARLYYEV_P_GAUSS_NARLYYEV_GAUSS_H_
