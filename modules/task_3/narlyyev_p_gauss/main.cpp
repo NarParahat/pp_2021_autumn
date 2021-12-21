@@ -7,21 +7,23 @@
 TEST(Parallel_Operations_MPI, Image_100x1) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    size_t rows = 8;
-    size_t cols = 1;
+    int rows = 8;
+    int cols = 1;
     std::vector<double> Image;
+    std::vector<double> control_result;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
+        std::cout << "Image has been generated." << std::endl;
+        double seq_start = MPI_Wtime();
+        control_result = getSequentialOperations(Image, rows, cols);
+        double end = MPI_Wtime();
+        std::cout << "Sequential implementation: " << end - seq_start << "s\n";
     }
     double parallel_start = MPI_Wtime();
     std::vector<double> result = getParallelOperations(Image, rows, cols);
     if (rank == 0) {
         double end = MPI_Wtime();
         std::cout << "Parallel implementation: " << end - parallel_start << "s\n";
-        double seq_start = MPI_Wtime();
-        std::vector<double> control_result = getSequentialOperations(Image, rows, cols);
-        end = MPI_Wtime();
-        std::cout << "Sequential implementation: " << end - seq_start << "s\n";
         ASSERT_EQ(control_result, result);
     }
 }
@@ -29,8 +31,8 @@ TEST(Parallel_Operations_MPI, Image_100x1) {
 TEST(Parallel_Operations_MPI, Image_1x100) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    size_t rows = 1;
-    size_t cols = 8;
+    int rows = 1;
+    int cols = 8;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -51,8 +53,8 @@ TEST(Parallel_Operations_MPI, Image_1x100) {
 TEST(Parallel_Operations_MPI, Image_513x234) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    size_t rows = 513;
-    size_t cols = 234;
+    int rows = 513;
+    int cols = 234;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -73,8 +75,8 @@ TEST(Parallel_Operations_MPI, Image_513x234) {
 TEST(Parallel_Operations_MPI, Image_234x513) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    size_t rows = 234;
-    size_t cols = 512;
+    int rows = 234;
+    int cols = 512;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -95,8 +97,8 @@ TEST(Parallel_Operations_MPI, Image_234x513) {
 TEST(Parallel_Operations_MPI, Image_512x512) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    size_t rows = 512;
-    size_t cols = 512;
+    int rows = 512;
+    int cols = 512;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -118,8 +120,8 @@ TEST(Parallel_Operations_MPI, Empty_Image) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
-    size_t rows = 1;
-    size_t cols = 1;
+    int rows = 1;
+    int cols = 1;
 
     ASSERT_ANY_THROW(getParallelOperations(Image, rows, cols));
 }
@@ -128,8 +130,8 @@ TEST(Parallel_Operations_MPI, Invalid_Param) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
-    size_t rows = 1;
-    size_t cols = 1;
+    int rows = 1;
+    int cols = 1;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
     }
