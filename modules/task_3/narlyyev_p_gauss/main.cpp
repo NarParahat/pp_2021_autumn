@@ -53,8 +53,8 @@ TEST(Parallel_Operations_MPI, Image_1x100) {
 TEST(Parallel_Operations_MPI, Image_513x234) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int rows = 513;
-    int cols = 234;
+    int rows = 5;
+    int cols = 5;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -75,8 +75,8 @@ TEST(Parallel_Operations_MPI, Image_513x234) {
 TEST(Parallel_Operations_MPI, Image_234x513) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int rows = 234;
-    int cols = 512;
+    int rows = 5;
+    int cols = 5;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -97,8 +97,8 @@ TEST(Parallel_Operations_MPI, Image_234x513) {
 TEST(Parallel_Operations_MPI, Image_512x512) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int rows = 512;
-    int cols = 512;
+    int rows = 10;
+    int cols = 10;
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
