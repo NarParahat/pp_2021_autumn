@@ -4,11 +4,11 @@
 #include <gtest-mpi-listener.hpp>
 #include "./narlyyev_gauss.h"
 
-TEST(Parallel_Operations_MPI, Image_5x5) {
+TEST(Parallel_Operations_MPI, Image_10x1) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int rows = 5;
-    int cols = 5;
+    int rows = 8;
+    int cols = 1;
     std::vector<double> Image;
     std::vector<double> control_result;
     if (rank == 0) {
@@ -28,7 +28,29 @@ TEST(Parallel_Operations_MPI, Image_5x5) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_5x5) {
+TEST(Parallel_Operations_MPI, Image_1x10) {
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int rows = 1;
+    int cols = 8;
+    std::vector<double> Image;
+    if (rank == 0) {
+        Image = getRandomImage(rows, cols);
+    }
+    double parallel_start = MPI_Wtime();
+    std::vector<double> result = getParallelOperations(Image, rows, cols);
+    if (rank == 0) {
+        double end = MPI_Wtime();
+        std::cout << "Parallel implementation: " << end - parallel_start << "s\n";
+        double seq_start = MPI_Wtime();
+        std::vector<double> control_result = getSequentialOperations(Image, rows, cols);
+        end = MPI_Wtime();
+        std::cout << "Sequential implementation: " << end - seq_start << "s\n";
+        ASSERT_EQ(control_result, result);
+    }
+}
+
+TEST(Parallel_Operations_MPI, Image_13x10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 5;
@@ -50,29 +72,7 @@ TEST(Parallel_Operations_MPI, Image_5x5) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_5x5) {
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int rows = 5;
-    int cols = 5;
-    std::vector<double> Image;
-    if (rank == 0) {
-        Image = getRandomImage(rows, cols);
-    }
-    double parallel_start = MPI_Wtime();
-    std::vector<double> result = getParallelOperations(Image, rows, cols);
-    if (rank == 0) {
-        double end = MPI_Wtime();
-        std::cout << "Parallel implementation: " << end - parallel_start << "s\n";
-        double seq_start = MPI_Wtime();
-        std::vector<double> control_result = getSequentialOperations(Image, rows, cols);
-        end = MPI_Wtime();
-        std::cout << "Sequential implementation: " << end - seq_start << "s\n";
-        ASSERT_EQ(control_result, result);
-    }
-}
-
-TEST(Parallel_Operations_MPI, Image_5x5) {
+TEST(Parallel_Operations_MPI, Image_10x10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 5;
