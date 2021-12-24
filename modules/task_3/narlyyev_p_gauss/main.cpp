@@ -4,7 +4,7 @@
 #include <gtest-mpi-listener.hpp>
 #include "./narlyyev_gauss.h"
 
-TEST(Parallel_Operations_MPI, Image_100x1) {
+TEST(Parallel_Operations_MPI, Image_10x1) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 8;
@@ -28,7 +28,7 @@ TEST(Parallel_Operations_MPI, Image_100x1) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_1x100) {
+TEST(Parallel_Operations_MPI, Image_1x10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 1;
@@ -50,7 +50,7 @@ TEST(Parallel_Operations_MPI, Image_1x100) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_513x234) {
+TEST(Parallel_Operations_MPI, Image_13x10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 5;
@@ -72,7 +72,7 @@ TEST(Parallel_Operations_MPI, Image_513x234) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_234x513) {
+TEST(Parallel_Operations_MPI, Image_10x10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 5;
@@ -94,7 +94,7 @@ TEST(Parallel_Operations_MPI, Image_234x513) {
     }
 }
 
-TEST(Parallel_Operations_MPI, Image_512x512) {
+TEST(Parallel_Operations_MPI, Image_12x12) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 10;
