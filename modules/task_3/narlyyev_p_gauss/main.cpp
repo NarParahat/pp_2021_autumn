@@ -52,8 +52,8 @@ TEST(Parallel_Operations_MPI, Image_1x10) {
 
 TEST(Parallel_Operations_MPI, Image_13x10) {
     int rank;
-    int rows = 5;
-    int cols = 5;
+    int rows = 6;
+    int cols = 2;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
@@ -74,8 +74,8 @@ TEST(Parallel_Operations_MPI, Image_13x10) {
 
 TEST(Parallel_Operations_MPI, Image_10x10) {
     int rank;
-    int rows = 5;
-    int cols = 5;
+    int rows = 2;
+    int cols = 6;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
