@@ -6,9 +6,9 @@
 
 TEST(Parallel_Operations_MPI, Image_10x1) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 8;
     int cols = 1;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     std::vector<double> control_result;
     if (rank == 0) {
@@ -30,9 +30,9 @@ TEST(Parallel_Operations_MPI, Image_10x1) {
 
 TEST(Parallel_Operations_MPI, Image_1x10) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 1;
     int cols = 8;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -52,9 +52,9 @@ TEST(Parallel_Operations_MPI, Image_1x10) {
 
 TEST(Parallel_Operations_MPI, Image_13x10) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 6;
     int cols = 2;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -74,9 +74,9 @@ TEST(Parallel_Operations_MPI, Image_13x10) {
 
 TEST(Parallel_Operations_MPI, Image_10x10) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 2;
     int cols = 6;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -96,9 +96,9 @@ TEST(Parallel_Operations_MPI, Image_10x10) {
 
 TEST(Parallel_Operations_MPI, Image_5x5) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 5;
     int cols = 5;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
@@ -118,9 +118,9 @@ TEST(Parallel_Operations_MPI, Image_5x5) {
 
 TEST(Parallel_Operations_MPI, Empty_Image) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 1;
     int cols = 1;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
 
     ASSERT_ANY_THROW(getParallelOperations(Image, rows, cols));
@@ -128,9 +128,9 @@ TEST(Parallel_Operations_MPI, Empty_Image) {
 
 TEST(Parallel_Operations_MPI, Invalid_Param) {
     int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int rows = 1;
     int cols = 1;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<double> Image;
     if (rank == 0) {
         Image = getRandomImage(rows, cols);
